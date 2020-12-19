@@ -1,0 +1,22 @@
+.popup-container {
+  min-width: 30rem;
+  .content {
+    .popup-form {
+      padding: 1rem 1.3rem;
+      button {
+        width: 5rem;
+        padding: 0 15px;
+      }
+    }
+  }
+  .popup-title {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: flex;
+    justify-content: start;
+    padding:0.5rem 0;
+    background-color: #3597b6;
+    color: #fff;
+  }
+}

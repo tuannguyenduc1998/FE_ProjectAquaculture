@@ -1,0 +1,24 @@
+<div class="bg-content w-100 p-2">
+  <div class="row mx-0 align-items">
+    <div class="col-md-12 d-flex form-inline px-0">
+        <div class="col-md-8 d-flex align-items-center px-0">
+          <i class="fa fa-arrow-left mr-1 pointer" aria-hidden="true" (click)="goBack()"></i>
+          <h6 class="text-uppercase font-weight-bold primary-color mb-0">
+            CHỈNH SỬA NGƯỜI DÙNG
+          </h6>
+        </div>
+        <div class="col-md-4 d-flex justify-content-end px-0">
+          <button nz-button nzType="primary" type="submit"
+            class="text-uppercase d-flex align-items-center justify-content-center mx-1" (click)="form.onSubmit()">
+            Lưu
+          </button>
+          <button nz-button type="click"
+            class="text-uppercase d-flex align-items-center justify-content-center"
+            [routerLink]="['/dashboard/management-user/user/list']">
+            Hủy
+          </button>
+        </div>
+    </div>
+  </div>
+  <app-user-form #form [id]="id" [typeForm]="typeForm"></app-user-form>
+</div>

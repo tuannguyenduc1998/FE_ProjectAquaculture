@@ -1,0 +1,38 @@
+<div [style.display]="workModel ? 'block' : 'none'" class="modal ant-layout" id="imagemodal" aria-hidden="true">
+  <div class="row">
+    <div class="content b-color d-flex flex-column align-items-center">
+      <div class="d-flex flex-column  align-items-center pt-5 pb-3">
+        <h4>HÌNH ẢNH MINH CHỨNG</h4>
+        <h6>Tên công việc: Ghi nhận <span class="font-weight-bold">{{workModel.managementFactor.name}}</span></h6>
+        <h6>Thời gian thực hiện:
+          {{workModel.executionTime * 1000 | date:'dd/MM/yyyy'}}
+          <span class="font-weight-bold">{{workModel.executionTime * 1000 | date:'HH:mm'}}</span></h6>
+      </div>
+      <div class="d-flex flex-row align-items-center">
+        <div class="close-button pointer text-uppercase" (click)="closeImageModal()">
+          Đóng
+        </div>
+        <i class="fa fa-angle-left icon-color mr-5 pr-5" aria-hidden="true" (click)="nextMove()"></i>
+        <div class="display-img" *ngFor="let itemImg of workModel.pictures;let i = index">
+          <img *ngIf="currentImage === itemImg.id" [src]="url + currentImage" class="imagepreview">
+          <div class="icon-delete-image">
+            <button *ngIf="currentImage === itemImg.id" nz-button nzType="primary" type="submit"
+              class="d-flex align-items-center justify-content-center" (click)="deleteImage(i)">
+              <i class="fa fa-trash" aria-hidden="true"></i>
+              Xóa ảnh
+            </button>
+          </div>
+        </div>
+        <i class="fa fa-angle-right icon-color ml-5 pl-5" aria-hidden="true" (click)="nextMove()"></i>
+      </div>
+      <div class="d-flex flex-row align-items-center">
+        <ng-container *ngFor="let itemImg of workModel.pictures;let index = index">
+          <img [src]="url + itemImg.id" [class.boxshadow]="itemImg.id === currentImage" class="img-small p-2 mt-4" (click)="clickImg(index)">
+        </ng-container>
+      </div>
+      <div class="d-flex justify-content-center">
+        <h6> Hình {{index+1}}/{{workModel.pictures.length}}</h6>
+      </div>
+    </div>
+  </div>
+  </div>

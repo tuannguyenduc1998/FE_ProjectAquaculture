@@ -1,0 +1,22 @@
+<div class="row col-md-12 font align-items-center mx-0 sticky">
+  <div class="col-md-8 d-flex justify-content-start px-0">
+    <img src="assets/images/Logo.png" alt="" class="icon-header" />
+    <h2 for="tieude" class="color-label ml-2 mt-2 text-uppercase font-weight-bold">
+      Hệ thống quán lý nuôi tôm
+    </h2>
+  </div>
+  <div class="col-md-4 d-flex justify-content-end icon-header-r">
+    <i class="fa fa-bell-o pr-2 mt-2" aria-hidden="true"></i>
+    <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+      <img src="assets/images/avatar2.png" class="avatar2 mt-1 mb-1" alt="" />
+      <a class="color-label pl-2">{{user.fullName}}</a>
+      <i class="pl-2" nz-icon nzType="down"></i>
+    </a>
+    <nz-dropdown-menu #menu="nzDropdownMenu">
+      <ul nz-menu class="mt-1">
+        <li nz-menu-item (click)="changePassword()">Thay đổi mật khẩu</li>
+        <li nz-menu-item (click)="logOut()">Đăng xuất</li>
+      </ul>
+    </nz-dropdown-menu>
+  </div>
+</div>

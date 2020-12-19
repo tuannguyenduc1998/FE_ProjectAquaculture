@@ -1,0 +1,223 @@
+<div class="bg-content w-100 p-2" *ngIf="!isShowImage">
+  <div class="row mx-0 align-items">
+    <div class="d-flex align-items-center">
+      <h6 class="text-uppercase font-weight-bold primary-color mb-0">
+        THÔNG TIN CÔNG VIỆC GHI NHẬN
+      </h6>
+    </div>
+    <div class="mx-0 pt-3 d-flex">
+      <div class="ml-auto d-flex flex-wrap w-100">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 d-flex form-inline pl-0 pr-0">
+          <div class="form-group align-items-start mr-3 py-1">
+            <div class="align-items-center mr-2 label pt-1">
+              <label class="mb-0">Từ ngày</label>
+            </div>
+            <div>
+              <nz-date-picker [(ngModel)]="filterModel.fromDate" [nzDisabledDate]="disabledStartDate" #fromDate>
+              </nz-date-picker>
+            </div>
+          </div>
+          <div class="form-group align-items-start mr-3 py-1">
+            <div class="align-items-center mr-2 label pt-1">
+              <label class="mb-0">Đến ngày</label>
+            </div>
+            <div>
+              <nz-date-picker [(ngModel)]="filterModel.toDate" [nzDisabledDate]="disabledEndDate" #fromDate>
+              </nz-date-picker>
+            </div>
+          </div>
+          <div class="form-group align-items-start mr-3 py-1">
+            <div class="align-items-center mr-2 label pt-1">
+              <label class="mb-0">Trạng thái</label>
+            </div>
+            <div>
+              <nz-select [(ngModel)]="filterModel.status" name="workStatus" nzShowSearch nzAllowClear
+                nzPlaceHolder="-Tất cả (All)-">
+                <nz-option *ngFor="let item of masterDataWorkStatus" [nzLabel]="item.value" [nzValue]="item.code">
+                </nz-option>
+              </nz-select>
+            </div>
+          </div>
+          <div class="form-group align-items-start mr-3 py-1">
+            <div class="align-items-center mr-2 label pt-1">
+              <label class="mb-0">Ao nuôi</label>
+            </div>
+            <div>
+              <nz-select [(ngModel)]="filterModel.farmingLocationId" (ngModelChange)="changeFarmingLocation($event)"
+                name="farmingLocation" nzShowSearch nzAllowClear nzPlaceHolder="-Tất cả (All)-">
+                <nz-option *ngFor="let item of farmingLocationData" [nzLabel]="item.name" [nzValue]="item.id">
+                </nz-option>
+              </nz-select>
+            </div>
+          </div>
+          <div class="form-group align-items-start mr-3 py-1">
+            <div class="align-items-center mr-2 label pt-1">
+              <label class="mb-0">Vụ nuôi</label>
+            </div>
+            <div>
+              <nz-select [nzDisabled]="!filterModel.farmingLocationId" [(ngModel)]="filterModel.shrimpCropId"
+                name="shrimpCrop" nzShowSearch nzAllowClear nzPlaceHolder="-Tất cả (All)-">
+                <nz-option *ngFor="let item of shrimpCropDataShow" [nzLabel]="item.name" [nzValue]="item.id">
+                </nz-option>
+              </nz-select>
+            </div>
+          </div>
+          <div class="form-group align-items-start mr-3 py-1">
+            <div class="align-items-center mr-2 label pt-1">
+              <label class="mb-0">Nhóm yếu tố</label>
+            </div>
+            <div>
+              <nz-select [(ngModel)]="filterModel.factorGroup" name="factorGroup" nzShowSearch nzAllowClear
+                nzPlaceHolder="-Tất cả (All)-">
+                <nz-option *ngFor="let item of masterDataFactorGroup" [nzLabel]="item.value" [nzValue]="item.code">
+                </nz-option>
+              </nz-select>
+            </div>
+          </div>
+          <div class="form-group align-items-start mr-3 py-1">
+            <div class="align-items-center mr-2 label pt-1">
+              <label class="mb-0">Người phụ trách</label>
+            </div>
+            <div>
+              <nz-select [(ngModel)]="filterModel.curator" name="user" nzShowSearch nzAllowClear
+                nzPlaceHolder="-Tất cả (All)-">
+                <nz-option *ngFor="let item of userData" [nzLabel]="item.fullName" [nzValue]="item.id">
+                </nz-option>
+              </nz-select>
+            </div>
+          </div>
+          <div class="d-flex ml-auto mt-2">
+            <button nz-button nzType="primary" type="submit"
+              class="text-uppercase d-flex align-items-center justify-content-center mr-2" (click)="filterWorkList()">
+              Lọc
+            </button>
+            <button nz-button nzType="primary" type="submit"
+              class="text-uppercase d-flex align-items-center justify-content-center" (click)="deleteFilter()">
+              Xóa lọc
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="h-100 w-100 table-content pt-3">
+    <nz-table #basicTable nzShowSizeChanger [nzData]="workData" [nzFrontPagination]="false" [nzLoading]="false"
+      [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+      (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changPageSize($event)"
+      [nzScroll]="{ x: '1100px' }">
+      <thead>
+        <tr>
+          <th class="text-center table-col-stt">STT</th>
+          <th class="table-col-namework">
+            <p class="mb-0">Tên công việc</p>
+          </th>
+          <th class="table-col-time">
+            <p class="mb-0">T/gian TH</p>
+          </th>
+          <th class="table-col-farming">
+            <p class="mb-0">Ao nuôi</p>
+          </th>
+          <th class="table-col-farmingobject">
+            <p class="mb-0">Đối tượng nuôi</p>
+          </th>
+          <th class="table-col-person">
+            <p class="mb-0">Người phụ trách</p>
+          </th>
+          <th class="table-col-gttk">
+            <p class="mb-0">GTTK</p>
+          </th>
+          <th class="table-col-desc">
+            <p class="mb-0">Mô tả</p>
+          </th>
+          <th class="table-col-record">
+            <p class="mb-0">GT ghi nhận</p>
+          </th>
+          <th class="table-col-proof">
+            <p class="mb-0">Minh chứng</p>
+          </th>
+          <th class="table-col-manipulation text-center">
+            <p class="mb-0">Thao tác</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of basicTable.data; let i = index">
+          <td class="text-center table-col-stt">{{renderIndex(i)}}</td>
+          <td>
+            <div class="d-flex justify-content-between align-items-center">
+              <div>Ghi nhận <span class="font-weight-bold">{{item.managementFactor.name}}</span> </div>
+              <img *ngIf="isDeadline(item)" class="img-deadline" src="assets/images/dead.gif" alt="">
+              <img *ngIf="isWarning(item)" class="img-deadline" src="assets/images/waring.gif" alt="">
+            </div>
+          </td>
+          <td>
+            <span>
+              {{item.executionTime * 1000 | date:'dd/MM/yyyy'}}
+              <span class="font-weight-bold">{{item.executionTime * 1000 | date:'HH:mm'}}</span>
+            </span>
+          </td>
+          <td>
+            {{item.farmingLocation.name}} ({{truncateChar(item.shrimpCrop.name, 5)}})
+          </td>
+          <td>
+            {{item.shrimpBreed.name}} (<span class="font-weight-bold">{{item.age}}</span> ngày tuổi)
+          </td>
+          <td>
+            {{item.curator.fullName}}</td>
+          <td class="text-right">
+            {{item.sampleValue}}
+          </td>
+          <td>
+            <div class="d-flex justify-content-between align-items-center">
+              {{truncateChar(item.description, 25)}}
+              <i class="fa fa-info-circle pointer" [class.visibility-hidden]="!item.description" aria-hidden="true"
+                (click)="showDesc(item.description)"></i>
+            </div>
+          </td>
+          <td [class.bg-td]="!item.value">
+            <div class="d-flex justify-content-between align-items-center">
+              <ng-container *ngIf="workDataItem.id !== item.id">
+                <i [class.value]="!item.value" class="fa fa-pencil-square-o fa-icon-edit pointer" aria-hidden="true"
+                  (click)="choseEdit(item)" nz-tooltip nzTooltipTitle="Chỉnh sửa giá trị"></i>
+                <i [class.value]="item.value" class="fa fa-plus-square-o fa-icon-add pointer" aria-hidden="true"
+                  (click)="choseEdit(item)" nz-tooltip nzTooltipTitle="Tạo mới giá trị"></i>
+                <div class="d-flex align-items-center">
+                  {{item?.value}}
+                  <div>&nbsp;{{item?.measureUnit?.name}}</div>
+                </div>
+              </ng-container>
+              <ng-container *ngIf="workDataItem.id === item.id">
+                <i class="fa fa-check-square-o pointer fa-save-icon" aria-hidden="true" (click)="createOrUpdate(item)"
+                  nz-tooltip nzTooltipTitle="Lưu giá trị"></i>
+                <div class="d-flex align-items-center">
+                  <input nz-input [class.is-invalid]="isSubmit && !workDataItem.value" class="text-right ml-1" type="text" [placeholder]="'Nhập'"
+                    [(ngModel)]="workDataItem.value" />
+                  <div>&nbsp;{{item?.measureUnit?.name}}</div>
+                </div>
+              </ng-container>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex" [class.justify-content-between]="item.pictures && item.pictures.length !== 0"
+              [class.justify-content-end]="!item.pictures || item.pictures.length === 0">
+              <a [class.value]="!item.pictures || item.pictures.length === 0" (click)="showImages(item)" class="upload">Xem
+                {{item?.pictures?.length}} hình</a>
+              <input multiple #upload class="upload-input" type='file' (change)="onUploadFile($event, item)" name="image"
+                accept=".jpg, .jpeg, .png, .gif">
+              <i class="fa fa-upload upload pointer" aria-hidden="true" (click)="upload.click()"></i>
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-center align-items-center">
+              <i class="fa fa-history pointer mr-2 fa-icon-history" aria-hidden="true" nz-tooltip nzTooltipTitle="Lịch sử cập nhật"
+                (click)="viewUpdateHistory(item)"></i>
+              <i [class.value]="item.value" class="fa fa-trash-o fa-icon-delete pointer" aria-hidden="true" nz-tooltip
+                nzTooltipTitle="Xóa" (click)="delete(item)"></i>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+<app-image-popup *ngIf="isShowImage" [workModel]="workDataItem" (closed)="closeImageModal()"></app-image-popup>

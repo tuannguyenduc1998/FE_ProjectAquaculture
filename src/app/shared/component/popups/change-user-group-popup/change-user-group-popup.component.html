@@ -1,0 +1,36 @@
+<div class="popup-container">
+  <div class="content container h-100 w-300 p-0">
+    <div class="d-flex justify-content-center popup-title pl-0 mb-3">
+      chọn nhóm cho người dùng
+    </div>
+    <div class="nz-row">
+      <div class="nz-col px-2 pb-2" nzSpan="12">
+        <form [formGroup]="userGroupForm" *ngIf="userGroupForm" (ngSubmit)="onSubmit()">
+          <div class="w-50 d-flex px-2">
+            <div class="field-name">
+              <p class="pt-2 mr-5 required ">Nhóm:</p>
+            </div>
+            <div class="field-value">
+              <nz-select formControlName="group" [compareWith]="compareData" name="group" nzShowSearch nzAllowClear
+                nzPlaceHolder="-Chọn-" [class.is-invalid]="formErrors?.group">
+                <nz-option *ngFor="let item of userGroups" [nzLabel]="item.name" [nzValue]="item">
+                </nz-option>
+              </nz-select>
+              <div class="invalid-feedback">
+                {{formErrors?.group}}
+              </div>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-md-center pt-3">
+            <button nz-button type="submit" nzType="primary" class="text-uppercase  mr-1">
+              Đồng ý
+            </button>
+            <button nz-button type="button" nzType="default" class="text-uppercase ml-1" (click)="closePopup()">
+              Không
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

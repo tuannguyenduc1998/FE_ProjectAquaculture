@@ -1,0 +1,11 @@
+[
+    {
+      "code": "INTERNAL_SERVER_ERROR",
+      "text": "Đã xảy ra lỗi. Vui lòng thử lại (An error occurred. Please try again)"
+    },
+    {
+      "code": "WRONG_USERNAME",
+      "text": "Tài khoản không tồn tại"
+    }
+  ]
+  

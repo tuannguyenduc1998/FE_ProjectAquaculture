@@ -1,0 +1,61 @@
+.popup-container {
+  min-width: 50rem;
+  .content {
+    .popup-form {
+      padding: 1rem 1.3rem;
+    }
+  }
+  .popup-title {
+    font-size: 1rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    padding:0.5rem 0;
+    background-color: #3597b6;
+    color: #fff;
+  }
+  .table-content {
+    .table-col {
+      &-stt {
+        width: 5rem;
+        border-left: 1px solid #eaeaea;
+      }
+      &-updateperson {
+        width: 10rem;
+      }
+      &-updatetime {
+        width: 8rem;
+      }
+      &-updatebefore {
+        width: 5rem;
+      }
+      &-updateafter {
+        width: 5rem;
+      }
+    }
+  }
+}
+
+:host ::ng-deep {
+  nz-table {
+    .ant-spin-nested-loading {
+      position: relative;
+      z-index: inherit;
+    }
+    table {
+      table-layout: fixed;
+    }
+  }
+  .ant-table-thead th {
+    background-color: #3597b6;
+    color: #ffffff;
+    border: 1px solid #eaeaea;
+  }
+  .ant-table-tbody tr td {
+    border-bottom: 1px solid #eaeaea;
+    border-right: 1px solid #eaeaea;
+  }
+}
+
+

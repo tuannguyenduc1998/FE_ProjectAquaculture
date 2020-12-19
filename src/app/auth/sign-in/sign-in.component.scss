@@ -1,0 +1,134 @@
+.auth {
+    background: url(../../../assets/images/auth/bg_main.jpg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    .container {
+        margin-bottom: 10rem;
+        padding: 0 6.7rem;
+        max-width: 1140px;
+        .auth-popup {
+            background: white;
+            min-height: 100%;
+            .banner {
+                min-height: 400px;
+                .title-area {
+                    bottom: 0;
+                    left: 21px;
+                    .banner-logo {
+                        width: 85px;
+                    }
+                    .banner-title {
+                        font-size: 1.1rem;
+                        color: #ffffff;
+                        text-transform: uppercase;
+                        font-weight: bold;
+                    }
+                }
+                .banner-bg {
+                    height: 400px;
+                    width: 100%;
+                }
+            }
+            .content {
+                .form {
+                    padding-top: 50px;
+                    padding-bottom: 30px;
+                    .form-title {
+                        font-size: 25px;
+                        font-style: normal;
+                        font-stretch: normal;
+                        line-height: 1.15;
+                        color: #2f66b7;
+                    }
+                    .form-content {
+                        margin: 0 20px;
+                        padding-bottom: 10px;
+                        width: 100%;
+                        .firstInput {
+                            position: relative;
+                            .ant-input-prefix {
+                                position: absolute;
+                                top: 43%;
+                                z-index: 2;
+                                display: flex;
+                                align-items: center;
+                                color: black;
+                                line-height: 0;
+                                transform: translateY(-50%);
+                                font-size: 18px;
+                                margin-left: 5px;
+                            }
+                            .form-input {
+                                background-color: transparent;
+                                border: none ;
+                                border-bottom: 1px solid #d5d5d5;
+                                font-size: 16px;
+                            }
+                            .ant-input {
+                                padding-left: 30px;
+                            }
+                        }
+                        .secondInput {
+                            position: relative;
+                            .ant-input-prefix {
+                                position: absolute;
+                                top: 46%;
+                                z-index: 2;
+                                display: flex;
+                                align-items: center;
+                                color: black;
+                                line-height: 0;
+                                transform: translateY(-50%);
+                                font-size: 18px;
+                                margin-left: 5px;
+                            }
+                            .form-input {
+                                background-color: transparent;
+                                border: none;
+                                border-bottom: 1px solid #d5d5d5;
+                                font-size: 16px;
+                            }
+                            .ant-input {
+                                padding-left: 30px;
+                            }
+                        }
+                        .btn-login {
+                            color: #ffffff;
+                            background-color: #2f66b7;
+                            border-color: transparent;
+                            border-radius: 5px;
+                            opacity: 0.85;
+                        }
+                        .invalid-feedback {
+                            line-height: 1.5;
+                            font-size: 90%;
+                            display: block;
+                            width: 100%;
+                            margin-top: 0.25rem;
+                            color: #dc3545;
+                            text-align: left;
+                        }
+                    }
+                }
+            }
+        }
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+    }
+}
+
+:host ::ng-deep {
+    .ant-input:focus {
+        box-shadow: none;
+    }
+}

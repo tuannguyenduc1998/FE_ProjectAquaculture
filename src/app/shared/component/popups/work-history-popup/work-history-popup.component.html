@@ -1,0 +1,46 @@
+<div class="popup-container">
+  <div class="content container h-50 w-300 px-0">
+    <div class="d-flex justify-content-center popup-title pl-0 mb-3">
+      lịch sử cập nhật
+    </div>
+        <div class="table-content p-3">
+          <nz-table #basicTable nzShowSizeChanger nzShowPagination [nzData]="workHistoryData" [nzFrontPagination]="false" [nzLoading]="false" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize"
+          [nzPageSizeOptions]="[5,10,15,20]">
+            <thead>
+              <tr>
+                <th class="text-center table-col-stt">STT</th>
+                <th class="table-col-updateperson">
+                  <p class="mb-0">Người cập nhật</p>
+                </th>
+                <th class="table-col-updatetime">
+                  <p class="mb-0">Thời gian cập nhật</p>
+                </th>
+                <th class="table-col-updatebefore">
+                  <p class="mb-0">Trước cập nhật</p>
+                </th>
+                <th class="table-col-updateafter">
+                  <p class="mb-0">Sau cập nhật</p>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of basicTable.data; let i = index">
+                <td class="text-center table-col-stt">{{i + this.pageSize * (this.pageIndex - 1) + 1}}</td>
+                <td>
+                  {{item.modifiedBy.fullName}}
+                </td>
+                <td>
+                    {{item.modifiedAt * 1000 | date:'dd/MM/yyyy h:mm a'}}
+                </td>
+                <td>
+                  {{item.oldValue}}
+                </td>
+                <td>
+                  {{item.newValue}}
+                </td>
+              </tr>
+            </tbody>
+          </nz-table>
+    </div>
+  </div>
+</div>

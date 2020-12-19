@@ -1,0 +1,118 @@
+<div class="bg-content w-100 p-2">
+  <div class="row mx-0 align-items">
+    <div class="d-flex align-items-center">
+      <h6 class="text-uppercase font-weight-bold primary-color mb-0">
+        danh sách người dùng
+      </h6>
+    </div>
+    <div class="mx-0 ml-auto d-flex">
+      <div class="ml-auto d-flex flex-wrap w-100">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 d-flex form-inline pl-0 pr-0">
+          <div class="form-group align-items-start mr-3 py-1">
+            <div class="align-items-center mr-3 label pt-1">
+              <label class="mb-0">Nhóm người dùng</label>
+            </div>
+            <div>
+              <nz-select [(ngModel)]="filterModel.groupId" name="groupId" nzShowSearch nzAllowClear
+                nzPlaceHolder="-Tất cả (All)-" (ngModelChange)="filterUserList()">
+                <nz-option *ngFor="let item of userGroups" [nzLabel]="item.name" [nzValue]="item.id">
+                </nz-option>
+              </nz-select>
+            </div>
+          </div>
+          <div class="search-area mx-1" nz-tooltip [nzTooltipTitle]="'Tìm theo tên, email'">
+            <nz-input-group class="search" nzSearch [nzAddOnAfter]="suffixButton">
+              <input type="text" nz-input [placeholder]="
+                  'Tìm theo tên, email'
+                " (keyup)="searchTerm$.next($event.target.value)" [value]="searchTerm$.value" />
+            </nz-input-group>
+            <ng-template #suffixButton>
+              <button nz-button nzType="primary" nzSearch>
+                <i nz-icon nzType="search"></i>
+              </button>
+            </ng-template>
+          </div>
+          <button nz-button nzType="primary" type="submit"
+            class="text-uppercase d-flex align-items-center justify-content-center mx-1" [routerLink]="['/dashboard/management-user/user/create']">
+            Tạo mới
+          </button>
+          <button nz-button nzType="primary" type="click"
+            class="text-uppercase d-flex align-items-center justify-content-center ml-1" (click)="filterUserList()">
+            <i class="fa fa-refresh" aria-hidden="true"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="h-100 w-100 table-content pt-3">
+    <nz-table #basicTable nzShowSizeChanger [nzFrontPagination]="false" [nzData]="userList"
+      (nzPageIndexChange)="changePageIndex($event)" (nzPageSizeChange)="changPageSize($event)" [nzLoading]="false"
+      [nzTotal]="total" [(nzPageIndex)]="pageIndex" [(nzPageSize)]="pageSize" [nzScroll]="{ x: '1100px' }">
+      <thead>
+        <tr>
+          <th class="text-center table-col-stt">
+            <label nz-checkbox [(ngModel)]="checkSelectAll" (change)="onSelectAll($event.target.checked)"></label>
+          </th>
+          <th class="table-col-username">
+            <p class="mb-0">Tên đăng nhập</p>
+          </th>
+          <th class="table-col-email">
+            <p class="mb-0">Email</p>
+          </th>
+          <th class="table-col-fullname">
+            <p class="mb-0">Họ và tên</p>
+          </th>
+          <th class="table-col-group">
+            <p class="mb-0">Nhóm</p>
+          </th>
+          <th class="table-col-status text-center">
+            <p class="mb-0">Trạng thái</p>
+          </th>
+          <th class="table-col-manipulation text-center">
+            <p class="mb-0">Thao tác</p>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of basicTable.data; let i = index">
+          <td class="text-center table-col-stt">
+            <label *ngIf="item.id !== userLogin.userId" nz-checkbox [(ngModel)]="item.checkSelected" (nzCheckedChange)="changeCheckAll()"></label>
+          </td>
+          <td>{{item.userName}}</td>
+          <td>{{item.email}}</td>
+          <td>{{item.fullName}}</td>
+          <td>
+            <div class="d-flex justify-content-between align-items-center">
+              {{item.group ? item.group.name : 'Chưa có nhóm' }}
+              <i class="fa fa-random pointer" aria-hidden="true" nz-tooltip nzTooltipTitle="Thay đổi nhóm"
+                (click)="changeUserGroup(item)"></i>
+            </div>
+          </td>
+          <td class="d-flex justify-content-center">
+            <div [class.status-active]="item.isActive" [class.status-delete]="!item.isActive">
+              {{item.isActive ? 'Active' : 'InActive'}}
+            </div>
+          </td>
+          <td>
+            <div class="d-flex justify-content-center align-items-center">
+              <i class="fa fa-pencil-square-o fa-icon-edit pointer mr-3" aria-hidden="true" nz-tooltip
+                nzTooltipTitle="Sửa" [routerLink]="['/dashboard/management-user/user/edit', item.id]">
+              </i>
+              <i [class.visibility-hidden]="item.id === userLogin.userId" class="fa fa-key fa-icon-key pointer mr-3"
+                aria-hidden="true" nz-tooltip nzTooltipTitle="Đặt lại mật khẩu" (click)="createPassword(item)"></i>
+              <i [class.visibility-hidden]="item.id === userLogin.userId"
+                class="fa fa-trash-o fa-icon-delete pointer mr-3" aria-hidden="true" nz-tooltip
+                nzTooltipTitle="Xóa" (click)="deleteUser(item)"></i>
+              <div [class.visibility-hidden]="item.id === userLogin.userId">
+                <div class="active-switch pointer" (click)="changeStatusActive(item)" aria-hidden="true" nz-tooltip
+                  nzTooltipTitle="Thay đổi trạng thái"></div>
+                <nz-switch [ngModel]="item?.isActive" (ngModelChange)="changeStatusActive(item)"
+                  class="table-icon--switch" nzSize="small"></nz-switch>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

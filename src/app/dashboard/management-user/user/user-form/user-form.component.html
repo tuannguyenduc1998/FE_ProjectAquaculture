@@ -1,0 +1,138 @@
+<form class="popup-form mt-4" [formGroup]="userForm" *ngIf="userForm">
+  <nz-collapse>
+    <nz-collapse-panel [nzHeader]="'Thông tin tài khoản'" [nzActive]="true">
+      <div class="row">
+        <div class="col-md-12 d-flex flex-wrap">
+          <label for="text-input" class="col-md-3 col-form-label label-generate py-0 required">Tên đăng nhập:
+          </label>
+          <div class="col-md-9 px-0">
+            <input nz-input class="form-control" [class.is-invalid]="formErrors?.userName" type="text"
+               formControlName="userName">
+            <div class="invalid-feedback">
+              {{ formErrors?.userName }}
+            </div>
+          </div>
+        </div>
+        <ng-container *ngIf="typeForm === etypeForm.create">
+          <div class="col-md-12 pt-3 d-flex flex-wrap">
+            <label for="text-input" class="col-md-3 col-form-label label-generate py-0 required">Mật khẩu:
+            </label>
+            <div class="col-md-9 px-0">
+              <input nz-input class="form-control" [class.is-invalid]="formErrors?.passWord"
+                type="password"  formControlName="passWord">
+              <div class="invalid-feedback">
+                {{ formErrors?.passWord }}
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-container *ngIf="typeForm === etypeForm.create">
+          <div class="col-md-12 pt-3 d-flex flex-wrap">
+            <label for="text-input" class="col-md-3 col-form-label label-generate py-0 required">Nhập lại mật khẩu:
+            </label>
+            <div class="col-md-9 px-0">
+              <input nz-input class="form-control" [class.is-invalid]="formErrors?.confirmPassword"
+                type="password"  formControlName="confirmPassword">
+              <div class="invalid-feedback">
+                {{ formErrors?.confirmPassword }}
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <div class="col-md-12 pt-3 d-flex flex-wrap">
+          <label for="text-input" class="col-md-3 col-form-label label-generate py-0">Nhóm người dùng:
+          </label>
+          <div class="col-md-9 px-0 d-flex justify-content-between">
+            <nz-select formControlName="userGroup" name="group" nzShowSearch nzAllowClear nzPlaceHolder="-Chọn-"
+              [compareWith]="compareDataUserGroup">
+              <nz-option *ngFor="let item of userGroups" [nzLabel]="item.name" [nzValue]="item">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div class="col-md-12 pt-3 ml-3">
+          <label nz-checkbox for="text-input" formControlName="isActive" [nzChecked]="true" class="col-form-label py-0">
+            Hoạt động
+          </label>
+        </div>
+      </div>
+    </nz-collapse-panel>
+    <nz-collapse-panel [nzHeader]="'Thông tin cá nhân'" [nzActive]="true">
+      <div class="row">
+        <div class="col-md-12 d-flex flex-wrap">
+          <label for="text-input" class="col-md-3 col-form-label label-generate py-0 required">Họ và tên:
+          </label>
+          <div class="col-md-9 px-0">
+            <input nz-input class="form-control" [class.is-invalid]="formErrors?.fullName" type="text"
+               formControlName="fullName">
+            <div class="invalid-feedback">
+              {{ formErrors?.fullName }}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 pt-3 d-flex flex-wrap">
+          <label for="text-input" class="col-md-3 col-form-label label-generate py-0 required">Email:
+          </label>
+          <div class="col-md-9 px-0">
+            <input nz-input class="form-control" [class.is-invalid]="formErrors?.email" type="email"
+               formControlName="email">
+            <div class="invalid-feedback">
+              {{ formErrors?.email }}
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 pt-3">
+          <label for="text-input" class="col-md-3 col-form-label label-generate py-0">Số điện thoại:
+          </label>
+          <input nz-input class="form-control col-md-9" type="text"  formControlName="cellPhone">
+        </div>
+        <div class="col-md-12 pt-3 d-flex flex-wrap">
+          <label for="text-input" class="col-md-3 col-form-label label-generate py-0">Tỉnh/Thành phố:
+          </label>
+          <div class="col-md-9 px-0">
+            <nz-select formControlName="province" nzAllowClear nzShowSearch nzPlaceHolder="-Chọn Tỉnh/Thành phố-"
+              (ngModelChange)="changeProvince($event)" [compareWith]="compareData">
+              <nz-option *ngFor="let item of masterDataAddressProvince" [nzLabel]="item.value" [nzValue]="item">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div class="col-md-12 pt-3 d-flex flex-wrap">
+          <label for="text-input" class="col-md-3 col-form-label label-generate py-0">Quận/Huyện:
+          </label>
+          <div class="col-md-9 px-0">
+            <nz-select [nzDisabled]="!userForm.get('province').value" formControlName="district" nzAllowClear
+              nzShowSearch nzPlaceHolder="-Chọn Quận/Huyện-" (ngModelChange)="changeDistrict($event)"
+              [compareWith]="compareData">
+              <nz-option *ngFor="let item of masterDataAddressDistrict" [nzLabel]="item.value" [nzValue]="item">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div class="col-md-12 pt-3 d-flex flex-wrap">
+          <label for="text-input" class="col-md-3 col-form-label label-generate py-0">Phường/Xã:
+          </label>
+          <div class="col-md-9 px-0">
+            <nz-select [nzDisabled]="!userForm.get('district').value" formControlName="ward" nzAllowClear nzShowSearch
+              nzPlaceHolder="-Chọn Phường/Xã-" [compareWith]="compareData">
+              <nz-option *ngFor="let item of masterDataAddressWard" [nzLabel]="item.value" [nzValue]="item">
+              </nz-option>
+            </nz-select>
+          </div>
+        </div>
+        <div class="col-md-12 pt-3">
+          <label for="text-input" class="col-md-3 col-form-label label-generate py-0">Số nhà, tên đường:
+          </label>
+          <input nz-input class="form-control col-md-9" type="text"  formControlName="address">
+        </div>
+        <div class="col-md-12 pt-3 d-flex flex-wrap">
+          <label for="text-input" class="col-md-3 col-form-label label-generate py-0">Địa chỉ:
+          </label>
+          <div class="col-md-9 px-0">
+            <textarea nz-input type="text"  disabled>{{address}}</textarea>
+          </div>
+        </div>
+      </div>
+    </nz-collapse-panel>
+  </nz-collapse>
+</form>

@@ -1,0 +1,50 @@
+.content{
+  width: 100%;
+  height: 100%;
+}
+.modal{
+  background-color: rgb(88, 88, 88);
+}
+.icon-color{
+  color: rgb(255, 255, 255);
+  font-size: 80px;
+}
+
+.close-button {
+  color: #fff;
+  position: absolute;
+  font-size: 1rem;
+  top: 2%;
+  right: 2%;
+}
+.icon-color:hover{
+  font-size: 100px;
+  cursor: pointer;
+}
+
+.img-small{
+  width: 130px;
+  height: 100px;
+}
+
+.boxshadow{
+  border: solid #a81010;
+}
+
+h4, h6{
+  color: #fff;
+}
+
+.display-img {
+  position: relative;
+
+  .icon-delete-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    cursor: pointer;
+  }
+  .imagepreview{
+    max-height: 574px;
+  }
+}

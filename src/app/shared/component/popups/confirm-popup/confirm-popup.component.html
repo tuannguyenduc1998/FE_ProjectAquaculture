@@ -1,0 +1,20 @@
+<div class="popup-container">
+  <div class="content container h-50 w-300 p-0">
+    <div class="d-flex justify-content-center popup-title pl-0 mb-3">
+      {{ title }}
+    </div>
+      <div class="px-2 pb-2" nzSpan="12">
+          <div class="w-100">
+                <p class="mb-0 d-flex justify-content-center">{{content}}</p>
+          </div>
+          <div class="row d-flex justify-content-md-center pt-3">
+            <button nz-button type="submit" nzType="primary" class="text-uppercase  mr-1" (click)="closeYes()">
+              Đồng ý
+            </button>
+            <button nz-button type="button" nzType="default" class="text-uppercase ml-1" (click)="closeNo()">
+              Không
+            </button>
+          </div>
+      </div>
+  </div>
+</div>

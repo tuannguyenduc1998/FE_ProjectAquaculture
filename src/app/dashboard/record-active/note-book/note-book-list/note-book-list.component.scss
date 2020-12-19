@@ -1,0 +1,76 @@
+.search-area {
+  min-width: 18rem;
+}
+
+.table-content {
+  .table-col {
+    &-stt {
+      width: 3rem;
+      border-left: 1px solid #eaeaea;
+    }
+    &-namework {
+      width: 11rem;
+    }
+    &-time {
+      width: 7rem;
+    }
+    &-farming {
+      width: 10rem;
+    }
+    &-farmingobject {
+      width: 10rem;
+    }
+    &-person {
+      width: 8rem;
+    }
+    &-gttk {
+      width: 5rem;
+    }
+    &-desc {
+      width: 10rem;
+    }
+    &-record {
+      width: 7rem;
+    }
+    &-proof {
+      width: 7rem;
+    }
+    &-manipulation {
+      width: 5rem;
+    }
+  }
+}
+::ng-deep {
+  nz-select {
+    min-width: 160px;
+  }
+}
+
+.bg-content{
+  background: #fff;
+  padding: 24px;
+}
+
+.upload{
+  color: #3597b6;
+}
+
+.value,
+.upload-input{
+  display: none;
+}
+
+.fa-icon-add{
+  color: orange;
+}
+
+.fa-save-icon,
+.fa-icon-history{
+  color: rgb(46, 132, 182);
+}
+.img-deadline{
+  width: 20px;
+}
+.bg-td{
+  background-color:#FDE1B7;
+}

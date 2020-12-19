@@ -1,0 +1,28 @@
+<app-hearder></app-hearder>
+<div class="background-dashboard">
+    <div class="header-main">
+        <ul nz-menu nzMode="horizontal">
+            <li nz-menu-item nzSelected [routerLink]="['/dashboard/record-active/note-book/list']">
+                <i nz-icon nzType="edit"></i>
+                Hoạt động ghi nhận
+            </li>
+            <li nz-submenu nzTitle="Quản lý người dùng" nzIcon="usergroup-add">
+                <ul>
+                    <li nz-menu-item [routerLink]="['/dashboard/management-user/user/list']">Người dùng</li>
+                </ul>
+            </li>
+            <li nz-submenu nzTitle="Dữ liệu nguồn" nzIcon="database">
+                <ul>
+                    <li nz-menu-item routerLink="/dashboard/data-source/farming-location/list">Ao nuôi</li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <div class="inner-content">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>
+<nz-footer>© 2020 Aquaculture. All right reserved. Powered by BYS</nz-footer>
